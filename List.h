@@ -59,7 +59,7 @@ bool    ItemMethod_findItemWithData (Item *,void *);                        //me
 List *  createList          (void);                                         //create an empty list 
 void    destroyList         (List *);
 
-Item *  createItem          (void *,size_t);                                //create an empty floating item, 0 size refers to sizeof(Item)
+Item *  createItem          (size_t);                                       //create an empty floating item, 0 size refers to sizeof(Item)
 
 Item *  List_append         (List *,Item *);                                //append item at the end of the list
 void    List_remove         (List *,Item *);                                //detach an item from the list (use free(item) to destroy it)
