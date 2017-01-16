@@ -32,7 +32,7 @@
 
 typedef struct _List List;
 typedef struct _Item Item;
-typedef struct _Enumerator Enumerator;
+typedef struct _Iteration Iteration;
 
 struct _List{
     Item *first,*last;
@@ -43,12 +43,14 @@ struct _Item{
     Item *previous,*next;
     void *data;
 };
-struct _Enumerator{
+struct _Iteration{
     Item *item;
-    Item *(*next)(Enumerator *);
+    Item *(*next)(Iteration *);
 };
 
+
 #define next(e_n_u_m) e.next(&e_n_u_m)
+
 
 List *  createList          (void);                                         //create an empty list 
 void    destroyList         (List *);
@@ -63,7 +65,8 @@ void    List_insert         (List *,Item *toAdd,Item *point,int after);    //ins
 Item *  List_findItem       (List *,const void *);
 void    List_gatherItems    (List *,Item **     );                      //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
 
-void List_initializeEnumerator(List *list,Enumerator *e);
+
+void List_beginIteration(List *list,Iteration *);
 
 
 #endif /* List_h */
