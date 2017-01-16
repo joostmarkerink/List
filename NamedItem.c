@@ -60,7 +60,7 @@ Item *List_findNamedItem(List *list,const char *name){
     Item *i;
     const char *a,*b;
     char aa,bb;
-    while((i=next(e))){
+    while((i=iterate(e))){
         a=((NamedItem *)i)->name;
         b=name;
         aa=0;bb=0;
