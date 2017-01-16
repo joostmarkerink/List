@@ -37,7 +37,7 @@ struct _NamedItem{
 
 
 Item *createNamedItem(const char *name){
-    Item *item=createItem(sizeof(NamedItem));
+    Item *item=Item_create(sizeof(NamedItem));
     char c;
     char *target=((NamedItem *)item)->name;
     while((c=*name++)) *target++=c;
