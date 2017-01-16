@@ -1,44 +1,31 @@
 //
 //  List.c
-
 /*
-MIT License
-
-Copyright © 2017 Joost Markerink
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ MIT License
+ 
+ Copyright (c) 2017 Joost Markerink
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 #include "List.h"
-
-
-Item *List_loop(List *list,ItemMethod call,void *arg){
-    
-    Item *n,*item=list->first;
-    while(item){
-        n=item->next;
-        if(!call(item,arg)) break;
-        item=n;
-    }
-    return item;
-}
-
+#include "string.h"
 
 List *createList(){
     List *l=(List *)malloc(sizeof(List));
@@ -47,13 +34,15 @@ List *createList(){
     return l;
 }
 
-bool ItemMethod_destroyAllItems(Item *item,void *arg){
-    free(item);
-    return true;
-}
+
 
 void destroyList(List *list){
-    List_loop(list, ItemMethod_destroyAllItems, list);
+    Enumerator e;
+    List_initializeEnumerator(list,&e);
+    Item *itm;
+    while((itm = next(e)))
+        free(itm);
+
     free(list);
 }
 
@@ -64,7 +53,15 @@ Item *createItem(size_t itemSize){
     return i;
 }
 
-bool ItemMethod_findItemWithData(Item *item,void *data){ return item->data!=data; }
+
+
+Item *List_findItem(List *list,const void *data){
+    Enumerator e;
+    List_initializeEnumerator(list, &e);
+    Item *item;
+    while((item=next(e))) if(item->data==data) return item;
+    return NULL;
+}
 
 
 Item *List_append(List *list,Item *i){
@@ -94,21 +91,15 @@ void List_remove(List *list,Item *item){
 }
 
 
-typedef struct{
-    Item *toFind;
-    off_t count;
-}ItemMethod_getIndexOfItemData;
-
-bool ItemMethod_getIndexOfItem(Item *item,void *arg){
-    ((ItemMethod_getIndexOfItemData *)arg)->count++;
-    return ((ItemMethod_getIndexOfItemData *)arg)->toFind!=item;
-}
 
 
 off_t List_getIndex(List *list,Item *item){
-    ItemMethod_getIndexOfItemData data={item,0};
-    if(List_loop(list,ItemMethod_getIndexOfItem,&data)==NULL) return -1;
-    return data.count;
+    off_t offset=0;
+    Enumerator e;
+    List_initializeEnumerator(list,&e);
+    Item *itm;
+    while((itm = next(e))) if(itm==item) return offset;
+    return offset;
 }
 
 
@@ -143,30 +134,40 @@ void List_insert(List *list,Item *newItem,Item *point,bool after){
 }
 
 
-typedef struct _ItemListData ItemListData;
-
-struct _ItemListData{
-    ItemListData *parent;
-    Item **items;
-};
-
-
-bool ItemMethod_getAllItems(Item *item,ItemListData *arg){
-    *arg->items++=item;
+bool ItemMethod_gatherData(Item *item,void *arg){
+    static void **gatherDataList = NULL;
+    if(!item->previous) gatherDataList=arg;
+    *gatherDataList++=item->data;
     return true;
 }
 
+
+
+
 void List_gatherItems(List *list,Item **items){
-    static ItemListData *currentItemList=NULL;
-    ItemListData c={currentItemList,items};
-    currentItemList=&c;
-    List_loop(list, (ItemMethod)ItemMethod_getAllItems, &c);
-    currentItemList=c.parent;
+    Enumerator e;
+    List_initializeEnumerator(list, &e);
+    Item *item;
+    while((item=next(e)))
+        *items++=item;
 }
 
 
 
 
+
+
+
+Item *Enumerator_nextItem(Enumerator *e){
+    Item *res=e->item;
+    if(res) e->item=res->next;
+    return res;
+}
+
+void List_initializeEnumerator(List *list,Enumerator *e){
+    e->item=list->first;
+    e->next=Enumerator_nextItem;
+}
 
 
 
