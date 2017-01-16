@@ -7,9 +7,11 @@ It allows to attach names to items (max 64 characters).
 It uses the common "free(void *)" and "void *malloc(size_t)" to allocate and free dynamic memory.
 
 ## Style
+In function names, I do not use short names like info, enum, init but full words for clearity: information,enumerator and initialize.
 When I use the word "data" in the List context, I refer to the "void *" pointer in an Item as it can be of any size or type.
 The functions do as little as possible to keep it transparent and clear. 
 
+## examples
 basic example:
 ```c
 
