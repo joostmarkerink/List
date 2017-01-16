@@ -43,14 +43,13 @@ struct _Item{
     Item *previous,*next;
     void *data;
 };
+
 struct _Iteration{
     Item *item;
     Item *(*next)(Iteration *);
 };
 
-
 #define next(e_n_u_m) e.next(&e_n_u_m)
-
 
 List *  createList          (void);                                         //create an empty list 
 void    destroyList         (List *);
@@ -65,8 +64,7 @@ void    List_insert         (List *,Item *toAdd,Item *point,int after);    //ins
 Item *  List_findItem       (List *,const void *);
 void    List_gatherItems    (List *,Item **     );                      //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
 
-
-void List_beginIteration(List *list,Iteration *);
-
+void List_beginIteration         (List *,Iteration *);
+void List_beginReversedIteration (List *,Iteration *);
 
 #endif /* List_h */
