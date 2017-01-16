@@ -49,7 +49,7 @@ struct _Iteration{
     Item *(*next)(Iteration *);
 };
 
-#define next(e_n_u_m) e.next(&e_n_u_m)
+#define iterate(e_n_u_m) e.next(&e_n_u_m)
 
 List *  createList          (void);                                         //create an empty list 
 void    destroyList         (List *);
