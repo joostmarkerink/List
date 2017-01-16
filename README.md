@@ -1,10 +1,10 @@
 # List
 A generic and extendable linked list object in C.
 
+It uses the common "free(void *)" and "void *malloc(size_t)" to allocate and free dynamic memory.
+
 NamedItem is an extension example.
 It allows to attach names to items (max 64 characters).
-
-It uses the common "free(void *)" and "void *malloc(size_t)" to allocate and free dynamic memory.
 
 ## Style
 In function names, I do not use short names like info, enum, init but full words for clearity: information,enumerator and initialize.
