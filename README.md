@@ -31,7 +31,7 @@ List_destroy(myList);
 ```
 List_destroy frees the list and all its items. 
 It does not touch the data.
-When the items data needs to be freed, loop thru the items to delete its data, before calling destroyList
+When the items data needs to be freed, loop thru the items to delete its data, before calling List_destroy
 
 List_remove does not destroy the Item. It is only detached from the list. use the standard free(myItem); to destroy it
 An Item can only be added to one list. However, It can be detached from one and attached to the other.
