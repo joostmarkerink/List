@@ -20,4 +20,6 @@ myItem->data="Some data";
 
 List_append(myList,myItem);
 
+destroyList(myList);//frees the list and all its items, does not touch the data, when the items data needs to be freed, loop thru the items to delete its data before calling destroyList
+
 ```
