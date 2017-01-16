@@ -15,14 +15,14 @@ The functions do as little as possible to keep it transparent and clear.
 list creation:
 ```c
 
-List *myList = createList();
+List *myList = List_create();
 
-Item *myItem = createItem(sizeof(Item));
+Item *myItem = Item_create(sizeof(Item));
 myItem->data = "Some data";
 
-List_append(myList, myItem);
+List_appendItem(myList, myItem);
 
-destroyList(myList);
+List_destroy(myList);
 
 
 ```
