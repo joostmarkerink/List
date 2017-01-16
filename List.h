@@ -50,7 +50,7 @@ struct _NamedItem{
     char name[64];
 };
 
-typedef bool(*ItemMethod)(Item *,void *);                                   //method for use with List_findItem
+typedef bool(*ItemMethod)(Item *,void *);                                   //method for use with List_loop
 
 bool    ItemMethod_findItemWithData (Item *,void *);                        //method to find the item in a list that contains the given data (use with List_loop)
 
