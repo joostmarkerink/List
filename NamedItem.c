@@ -40,7 +40,7 @@ Item *createNamedItem(const char *name){
     Item *item=createItem(sizeof(NamedItem));
     char c;
     char *target=((NamedItem *)item)->name;
-    while(c=*name++) *target++=c;
+    while((c=*name++)) *target++=c;
     *target++=0;
     return item;
 }
@@ -49,8 +49,8 @@ Item *createNamedItem(const char *name){
 bool ItemMethod_findNamed(Item *itm,void *arg){
     const char *a=((NamedItem *)itm)->name;
     const char *b=(const char *)arg;
-    char aa,bb;
-    while(aa=*a++ && bb=*b++) if(aa!=bb) break;
+    char aa=0,bb=0;
+    while((aa=*a++) && (bb=*b++)) if(aa!=bb) break;
     return aa==bb;
 }
 
