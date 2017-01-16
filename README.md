@@ -33,5 +33,16 @@ When the items data needs to be freed, loop thru the items to delete its data, b
 List_remove does not destroy the Item. It is only detached from the list. use the standard free(myItem); to destroy it
 An Item can only be added to one list. However, It can be detached from one and attached to the other.
 
-List_loop is a powerfull function. It can just be used to walk thru the entire list. It can also be used to find anything that is in the data. When the user defined method returns false on a certain Item, the loop will 'break' and return this Item.
-List functions themself also use List_loop whenever they need to loop the list.
+to walk thru a list, use the Enumerator:
+```c
+
+Enumerator e;
+
+List_initializeEnumerator(myList,&e);
+Item *item;
+while((item=next(e))){
+   //do something with item
+}
+
+
+```
