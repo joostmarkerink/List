@@ -6,3 +6,5 @@ It uses the "C Standard General Utilities Library" to allocate and free dynamic 
 NamedItem is an extension example.
 It allows to attach names to items (max 64 characters).
 
+
+When I use the word "data" in the List context, I refer to the "void *" pointer in an Item as it can be of any size or type.
