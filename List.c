@@ -25,7 +25,6 @@
  */
 
 #include "List.h"
-#include "string.h"
 
 List *createList(){
     List *l=(List *)malloc(sizeof(List));
