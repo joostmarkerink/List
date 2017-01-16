@@ -26,7 +26,6 @@ SOFTWARE.
 */
 
 #include "List.h"
-#include "string.h"
 
 
 Item *List_loop(List *list,ItemMethod call,void *arg){
