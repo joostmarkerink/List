@@ -55,8 +55,8 @@ bool ItemMethod_findNamed(Item *itm,void *arg){
 }
 
 Item *List_findNamedItem(List *list,const char *name){ 
-    Enumerator e;
-    List_initializeEnumerator(list, &e);
+    Iteration e;
+    List_beginIteration(list, &e);
     Item *i;
     const char *a,*b;
     char aa,bb;
