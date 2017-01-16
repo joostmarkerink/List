@@ -40,7 +40,7 @@ Iteration i;
 
 List_beginIteration(myList,&i);
 Item *item;
-while((item=next(i))){
+while((item=iterate(i))){
    //do something with item
 }
 
