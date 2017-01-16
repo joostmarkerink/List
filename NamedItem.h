@@ -29,7 +29,9 @@
 
 #include "List.h"
 
-Item *  createNamedItem     (const char *);         //create an empty item with name (of max. 63 characters)
+
+Item *  NamedItem_create    (const char *);         //create an empty item with name (of max. 63 characters)
 Item *  List_findNamedItem  (List *,const char *);  //loops thru the list of named items until the item name is detected
+
 
 #endif /* NamedItem_h */
