@@ -10,7 +10,7 @@ It allows to attach names to items (max 64 characters).
 When I use the word "data" in the List context, I refer to the "void *" pointer in an Item as it can be of any size or type.
 The functions do as little as possible to keep it transparent and clear. 
 
-
+```c
 //basic example:
 
 List *myList = createList();
@@ -20,3 +20,4 @@ myItem->data="Some data";
 
 List_append(myList,myItem);
 
+```
