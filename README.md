@@ -18,9 +18,9 @@ list creation:
 List *myList = createList();
 
 Item *myItem = createItem(sizeof(Item));
-myItem->data="Some data";
+myItem->data = "Some data";
 
-List_append(myList,myItem);
+List_append(myList, myItem);
 
 destroyList(myList);
 
@@ -40,7 +40,7 @@ Iteration i;
 
 List_beginIteration(myList,&i);
 Item *item;
-while((item=iterate(i))){
+while((item = iterate(i))){
    //do something with item
 }
 
