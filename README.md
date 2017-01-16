@@ -22,7 +22,7 @@ list creation:
 
 List *myList = List_create();
 
-Item *myItem = Item_create(sizeof(Item));
+Item *myItem = Item_create( sizeof(Item) );
 myItem->data = "Some data";
 
 List_appendItem(myList, myItem);
@@ -43,9 +43,9 @@ to walk thru a list, use Iteration:
 
 Iteration i;
 
-List_beginIteration(myList,&i);
+List_beginIteration( myList, &i );
 Item *item;
-while((item = iterate(i))){
+while((item = iterate(i) )){
    //do something with item->data
 }
 
