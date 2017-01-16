@@ -1,6 +1,6 @@
 //
 //  NamedItem.c
-//  RPModules
+//  List
 
 /*
 MIT License
