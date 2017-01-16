@@ -64,7 +64,7 @@ void    List_insert         (List *,Item *toAdd,Item *point,int after); //insert
 Item *  List_findItem       (List *,const void *);                      //returns the item that contains this data, otherwise it will return NULL 
 void    List_gatherItems    (List *,Item **     );                      //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
 
-void List_beginIteration         (List *,Iteration *);                  //initializes an Iteration from first to last Item
-void List_beginReversedIteration (List *,Iteration *);                  //initializes an Iteration from last to first Item
+void    List_beginIteration         (List *,Iteration *);                  //initializes an Iteration from first to last Item
+void    List_beginReversedIteration (List *,Iteration *);                  //initializes an Iteration from last to first Item
 
 #endif /* List_h */
