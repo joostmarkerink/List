@@ -26,7 +26,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <string.h>
 #include "NamedItem.h"
 
 typedef struct _NamedItem NamedItem;
@@ -38,14 +37,21 @@ struct _NamedItem{
 
 
 Item *createNamedItem(const char *name){
-    NamedItem *item=(NamedItem *)createItem(sizeof(NamedItem));
-    strcpy(item->name,name);
-    return &item->item;
+    Item *item=createItem(sizeof(NamedItem));
+    char c;
+    char *target=((NamedItem *)item)->name;
+    while(c=*name++) *target++=c;
+    *target++=0;
+    return item;
 }
 
 
 bool ItemMethod_findNamed(Item *itm,void *arg){
-    return strcmp(((NamedItem *)itm)->name, (const char *)arg)==0;
+    const char *a=((NamedItem *)itm)->name;
+    const char *b=(const char *)arg;
+    char aa,bb;
+    while(aa=*a++ && bb=*b++) if(aa!=bb) break;
+    return aa==bb;
 }
 
 Item *List_findNamedItem(List *list,const char *name){ 
