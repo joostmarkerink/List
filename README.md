@@ -1,5 +1,6 @@
 # List
 A generic and extendable linked list object in C.
+This List contains a chain of Items, from Item list->first to Item list->last and keeps track of the length.
 
 It uses the common "free(void *)" and "void *malloc(size_t)" to allocate and free dynamic memory.
 
