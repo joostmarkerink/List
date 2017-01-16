@@ -144,22 +144,22 @@ void List_insert(List *list,Item *newItem,Item *point,bool after){
 }
 
 
-typedef struct _ItemList ItemList_;
+typedef struct _ItemListData ItemListData;
 
-struct _ItemList{
-    ItemList_ *parent;
+struct _ItemListData{
+    ItemListData *parent;
     Item **items;
 };
 
 
-bool ItemMethod_getAllItems(Item *item,ItemList_ *arg){
+bool ItemMethod_getAllItems(Item *item,ItemListData *arg){
     *arg->items++=item;
     return true;
 }
 
 void List_gatherItems(List *list,Item **items){
-    static ItemList_ *currentItemList=NULL;
-    ItemList_ c={currentItemList,items};
+    static ItemListData *currentItemList=NULL;
+    ItemListData c={currentItemList,items};
     currentItemList=&c;
     List_loop(list, (ItemMethod)ItemMethod_getAllItems, &c);
     currentItemList=c.parent;
