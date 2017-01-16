@@ -90,6 +90,8 @@ void List_remove(List *list,Item *item){
 }
 
 
+
+
 off_t List_getIndex(List *list,Item *item){
     off_t offset=0;
     Iteration e;
@@ -98,6 +100,7 @@ off_t List_getIndex(List *list,Item *item){
     while((itm = next(e))) if(itm==item) return offset;
     return offset;
 }
+
 
 
 void List_insert(List *list,Item *newItem,Item *point,int after){
@@ -154,8 +157,22 @@ Item *Iteration_nextItem(Iteration *e){
     return res;
 }
 
+Item *Iteration_reverseNextItem(Iteration *i){
+    Item *res=i->item;
+    if(res) i->item=res->previous;
+    return res;
+}
+
 void List_beginIteration(List *list,Iteration *e){
     e->item=list->first;
     e->next=Iteration_nextItem;
 }
+
+void List_beginReversedIteration(List *list,Iteration *e){
+    e->item=list->last;
+    e->next=Iteration_reverseNextItem;
+}
+
+
+
 
