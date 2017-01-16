@@ -6,6 +6,8 @@ It allows to attach names to items (max 64 characters).
 
 It uses the common "free(void *)" and "void *malloc(size_t)" to allocate and free dynamic memory.
 
+(List_loop is deprecated, it will be replaced with an enumerator shortly...)
+
 ## Style
 When I use the word "data" in the List context, I refer to the "void *" pointer in an Item as it can be of any size or type.
 The functions do as little as possible to keep it transparent and clear. 
