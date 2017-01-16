@@ -41,7 +41,7 @@ Iteration i;
 List_beginIteration(myList,&i);
 Item *item;
 while((item = iterate(i))){
-   //do something with item
+   //do something with item->data
 }
 
 
