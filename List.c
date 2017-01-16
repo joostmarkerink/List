@@ -26,7 +26,7 @@
 
 #include "List.h"
 
-List *createList(){
+List *List_create(){
     List *l=(List *)malloc(sizeof(List));
     l->first=l->last=NULL;
     l->length=0;
@@ -35,7 +35,7 @@ List *createList(){
 
 
 
-void destroyList(List *list){
+void List_destroy(List *list){
     Iteration e;
     List_beginIteration(list,&e);
     Item *itm;
@@ -45,7 +45,7 @@ void destroyList(List *list){
     free(list);
 }
 
-Item *createItem(size_t itemSize){
+Item *Item_create(size_t itemSize){
     Item *i=(Item *)malloc(itemSize<sizeof(Item)?sizeof(Item):itemSize);
     i->data=NULL;
     i->previous=i->next=NULL;
@@ -63,7 +63,7 @@ Item *List_findItem(List *list,const void *data){
 }
 
 
-Item *List_append(List *list,Item *i){
+Item *List_appendItem(List *list,Item *i){
     i->previous=list->last;
     i->next=NULL;
     if(list->last){
@@ -92,7 +92,7 @@ void List_remove(List *list,Item *item){
 
 
 
-off_t List_getIndex(List *list,Item *item){
+off_t List_getItemIndex(List *list,Item *item){
     off_t offset=0;
     Iteration e;
     List_beginIteration(list,&e);
@@ -108,7 +108,7 @@ void List_insert(List *list,Item *newItem,Item *point,int after){
 
     if(after){
         if(point==list->last){
-            List_append(list, newItem);
+            List_appendItem(list, newItem);
             return;
         }else if(point->next){
             newItem->next = point->next;
@@ -133,13 +133,6 @@ void List_insert(List *list,Item *newItem,Item *point,int after){
 }
 
 
-bool ItemMethod_gatherData(Item *item,void *arg){
-    static void **gatherDataList = NULL;
-    if(!item->previous) gatherDataList=arg;
-    *gatherDataList++=item->data;
-    return true;
-}
-
 void List_gatherItems(List *list,Item **items){
     Iteration e;
     List_beginIteration(list, &e);
@@ -150,16 +143,9 @@ void List_gatherItems(List *list,Item **items){
 
 
 
-
 Item *Iteration_nextItem(Iteration *e){
     Item *res=e->item;
     if(res) e->item=res->next;
-    return res;
-}
-
-Item *Iteration_reverseNextItem(Iteration *i){
-    Item *res=i->item;
-    if(res) i->item=res->previous;
     return res;
 }
 
@@ -168,10 +154,15 @@ void List_beginIteration(List *list,Iteration *e){
     e->next=Iteration_nextItem;
 }
 
+Item *Iteration_reverseNextItem(Iteration *i){
+    Item *res=i->item;
+    if(res) i->item=res->previous;
+    return res;
+}
+
 void List_beginReversedIteration(List *list,Iteration *e){
     e->item=list->last;
     e->next=Iteration_reverseNextItem;
 }
-
 
 
