@@ -58,9 +58,8 @@ void destroyList(List *list){
     free(list);
 }
 
-Item *createItem(void *data,size_t itemSize){
+Item *createItem(size_t itemSize){
     Item *i=(Item *)malloc(itemSize==0?sizeof(Item):itemSize);
-    i->data=data;
     i->previous=i->next=NULL;
     return i;
 }
