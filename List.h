@@ -40,8 +40,7 @@ bool    ItemMethod_findItemWithData (Item *,void *);                        //me
 List *  createList          (void);                                         //create an empty list 
 void    destroyList         (List *);
 
-Item *  createItem          (void *,size_t);                                //create an empty item, 0 size refers to sizeof(Item)
-Item *  createNamedItem     (void *,const char *);                          //create an empty item with name (of max. 63 characters)
+Item *  createItem          (void *,size_t);                                //create an empty floating item, 0 size refers to sizeof(Item)
 
 Item *  List_append         (List *,Item *);                                //append item at the end of the list
 void    List_remove         (List *,Item *);                                //detach an item from the list (use free(item) to destroy it)
@@ -49,7 +48,6 @@ off_t   List_getIndex       (List *,Item *);                                //re
 void    List_insert         (List *,Item *toAdd,Item *point,bool after);    //insert an item before or after an existing item in the list
 
 Item *  List_loop           (List *,ItemMethod,void *arg);                  //loops thru the list of items until the method returns false (method NULL will compare the items data)
-Item *  List_findNamedItem  (List *,const char *);                          //loops thru the list of named items until the item name is detected
 
 void    List_gatherItems    (List *list,Item **items);                      //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
 
