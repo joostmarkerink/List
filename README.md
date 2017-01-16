@@ -12,7 +12,7 @@ When I use the word "data" in the List context, I refer to the "void *" pointer 
 The functions do as little as possible to keep it transparent and clear. 
 
 ## examples
-basic example:
+list creation:
 ```c
 
 List *myList = createList();
