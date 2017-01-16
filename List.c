@@ -144,15 +144,6 @@ void List_insert(List *list,Item *newItem,Item *point,bool after){
 }
 
 
-bool ItemMethod_gatherData(Item *item,void *arg){
-    static void **gatherDataList = NULL;
-    if(!item->previous) gatherDataList=arg;
-    *gatherDataList++=item->data;
-    return true;
-}
-
-
-
 typedef struct _ItemList ItemList_;
 
 struct _ItemList{
