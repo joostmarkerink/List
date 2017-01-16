@@ -36,11 +36,11 @@ An Item can only be added to one list. However, It can be detached from one and 
 to walk thru a list, use the Enumerator:
 ```c
 
-Enumerator e;
+Iteration i;
 
-List_initializeEnumerator(myList,&e);
+List_beginIteration(myList,&i);
 Item *item;
-while((item=next(e))){
+while((item=next(i))){
    //do something with item
 }
 
