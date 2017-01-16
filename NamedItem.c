@@ -45,15 +45,6 @@ Item *createNamedItem(const char *name){
     return item;
 }
 
-
-bool ItemMethod_findNamed(Item *itm,void *arg){
-    const char *a=((NamedItem *)itm)->name;
-    const char *b=(const char *)arg;
-    char aa=0,bb=0;
-    while((aa=*a++) && (bb=*b++)) if(aa!=bb) break;
-    return aa==bb;
-}
-
 Item *List_findNamedItem(List *list,const char *name){ 
     Iteration e;
     List_beginIteration(list, &e);
