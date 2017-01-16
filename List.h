@@ -28,6 +28,7 @@
 #define List_h
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct _List List;
 typedef struct _Item Item;
@@ -47,7 +48,6 @@ struct _Enumerator{
     Item *(*next)(Enumerator *);
 };
 
-
 #define next(e_n_u_m) e.next(&e_n_u_m)
 
 List *  createList          (void);                                         //create an empty list 
@@ -58,17 +58,12 @@ Item *  createItem          (size_t);                                //create an
 Item *  List_append         (List *,Item *);                                //append item at the end of the list
 void    List_remove         (List *,Item *);                                //detach an item from the list (use free(item) to destroy it)
 off_t   List_getIndex       (List *,Item *);                                //returns the offset of item or -1 if it is not in the list
-void    List_insert         (List *,Item *toAdd,Item *point,bool after);    //insert an item before or after an existing item in the list
+void    List_insert         (List *,Item *toAdd,Item *point,int after);    //insert an item before or after (after = 0/1) an existing item in the list
 
 Item *  List_findItem       (List *,const void *);
 void    List_gatherItems    (List *,Item **     );                      //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
 
-
-
-
 void List_initializeEnumerator(List *list,Enumerator *e);
-
-
 
 
 #endif /* List_h */
