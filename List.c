@@ -33,9 +33,11 @@ List *createList(){
     return l;
 }
 
+
+
 void destroyList(List *list){
-    Enumerator e;
-    List_initializeEnumerator(list,&e);
+    Iteration e;
+    List_beginIteration(list,&e);
     Item *itm;
     while((itm = next(e)))
         free(itm);
@@ -53,8 +55,8 @@ Item *createItem(size_t itemSize){
 
 
 Item *List_findItem(List *list,const void *data){
-    Enumerator e;
-    List_initializeEnumerator(list, &e);
+    Iteration e;
+    List_beginIteration(list, &e);
     Item *item;
     while((item=next(e))) if(item->data==data) return item;
     return NULL;
@@ -74,7 +76,9 @@ Item *List_append(List *list,Item *i){
     return i;
 }
 
+
 void List_remove(List *list,Item *item){
+    
     if(list->last==item)  list->last=item->previous;
     if(list->first==item) list->first=item->next;
     
@@ -86,16 +90,14 @@ void List_remove(List *list,Item *item){
 }
 
 
-
 off_t List_getIndex(List *list,Item *item){
     off_t offset=0;
-    Enumerator e;
-    List_initializeEnumerator(list,&e);
+    Iteration e;
+    List_beginIteration(list,&e);
     Item *itm;
     while((itm = next(e))) if(itm==item) return offset;
     return offset;
 }
-
 
 
 void List_insert(List *list,Item *newItem,Item *point,int after){
@@ -135,10 +137,9 @@ bool ItemMethod_gatherData(Item *item,void *arg){
     return true;
 }
 
-
 void List_gatherItems(List *list,Item **items){
-    Enumerator e;
-    List_initializeEnumerator(list, &e);
+    Iteration e;
+    List_beginIteration(list, &e);
     Item *item;
     while((item=next(e)))
         *items++=item;
@@ -147,16 +148,14 @@ void List_gatherItems(List *list,Item **items){
 
 
 
-
-Item *Enumerator_nextItem(Enumerator *e){
+Item *Iteration_nextItem(Iteration *e){
     Item *res=e->item;
     if(res) e->item=res->next;
     return res;
 }
 
-void List_initializeEnumerator(List *list,Enumerator *e){
+void List_beginIteration(List *list,Iteration *e){
     e->item=list->first;
-    e->next=Enumerator_nextItem;
+    e->next=Iteration_nextItem;
 }
-
 
