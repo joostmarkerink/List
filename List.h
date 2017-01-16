@@ -1,6 +1,5 @@
 //
 //  List.h
-//  RPModules
 //
 /*
 MIT License
