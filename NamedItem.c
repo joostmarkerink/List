@@ -36,8 +36,8 @@ struct _NamedItem{
 };
 
 
-Item *createNamedItem(void *data,const char *name){
-    NamedItem *item=(NamedItem *)createItem(data,sizeof(NamedItem));
+Item *createNamedItem(const char *name){
+    NamedItem *item=(NamedItem *)createItem(sizeof(NamedItem));
     strcpy(item->name,name);
     return &item->item;
 }
