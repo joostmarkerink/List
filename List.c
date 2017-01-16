@@ -49,20 +49,6 @@ Item *createItem(void *data,size_t itemSize){
 bool ItemMethod_findItemWithData(Item *item,void *data){ return item->data!=data; }
 
 
-
-Item *createNamedItem(void *data,const char *name){
-    NamedItem *item=(NamedItem *)createItem(data,sizeof(NamedItem));
-    strcpy(item->name,name);
-    return &item->item;
-}
-
-
-bool ItemMethod_findNamed(Item *itm,void *arg){
-    return strcmp(((NamedItem *)itm)->name, (const char *)arg)==0;
-}
-
-Item *List_findNamedItem(List *list,const char *name){ return List_loop(list, ItemMethod_findNamed,(void *)name); }
-
 Item *List_append(List *list,Item *i){
     i->previous=list->last;
     i->next=NULL;
