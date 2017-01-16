@@ -49,7 +49,7 @@ struct _Iteration{
     Item *(*next)(Iteration *);
 };
 
-#define iterate(e_n_u_m) e.next(&e_n_u_m)
+#define iterate(e_n_u_m) e.next(&e_n_u_m)                               //returns the next item
 
 List *  List_create         (void);                                     //create an empty list 
 void    List_destroy        (List *);                                   //destroy list and all its items (does not touch the data)
@@ -61,10 +61,10 @@ void    List_removeItem     (List *,Item *);                            //detach
 off_t   List_getItemIndex   (List *,Item *);                            //returns the offset of item or -1 if it is not in the list
 void    List_insert         (List *,Item *toAdd,Item *point,int after); //insert an item before or after (after = 0/1) an existing item in the list
 
-Item *  List_findItem       (List *,const void *);
+Item *  List_findItem       (List *,const void *);                      //returns the item that contains this data, otherwise it will return NULL 
 void    List_gatherItems    (List *,Item **     );                      //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
 
-void List_beginIteration         (List *,Iteration *);
-void List_beginReversedIteration (List *,Iteration *);
+void List_beginIteration         (List *,Iteration *);                  //initializes an Iteration from first to last Item
+void List_beginReversedIteration (List *,Iteration *);                  //initializes an Iteration from last to first Item
 
 #endif /* List_h */
