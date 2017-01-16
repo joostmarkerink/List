@@ -32,4 +32,4 @@ List_remove does not destroy the Item. It is only detached from the list. use th
 An Item can only be added to one list. However, It can be detached from one and attached to the other.
 
 List_loop is a powerfull function. It can just be used to walk thru the entire list. It can also be used to find anything that is in the data. When the user defined method returns false on a certain Item, the loop will 'break' and return this Item.
-Any other List functions themself also use List_loop whenever they need to loop the list.
+List functions themself also use List_loop whenever they need to loop the list.
