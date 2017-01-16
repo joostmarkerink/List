@@ -8,6 +8,9 @@ It allows to attach names to items (max 64 characters).
 
 ## Style
 In function names, I do not use short names like info, enum, init but full words for clearity: information,enumerator and initialize.
+
+Object Oriented functions always start with the Object type name and finish with their function, like: List_create this way it's easier to remember how functions are named, and align nicely in the code layout.
+
 When I use the word "data" in the List context, I refer to the "void *" pointer in an Item as it can be of any size or type.
 The functions do as little as possible to keep it transparent and clear. 
 
