@@ -6,7 +6,7 @@ This List contains a chain of Items, from Item list->first to Item list->last an
 It uses the common [free](https://linux.die.net/man/3/free) and [malloc](https://linux.die.net/man/3/malloc) functions to allocate and free dynamic memory.
 
 NamedItem is an extension example.
-It allows to attach names to items (max 64 characters).
+It allows to attach names to items (max 64 characters). So you can say, it changes a List into a Record.
 
 ## Style
 In function names, I do not use short names like info, enum, init but full words for clearity: information,enumerator and initialize.
