@@ -49,6 +49,14 @@ struct _Iteration{
 };
 
 #define iterate(e_n_u_m) e_n_u_m.next(&e_n_u_m)
+// Iteration i;
+// List_beginIteration(myList,&i);
+// Item *item;
+// while( (item = iterate(i) ) ){
+//      do something with item->data
+// }
+
+
 
 List *  List_create         (void);                                     //create an empty list 
 void    List_destroy        (List *);                                   //destroy list and all its items (does not touch the data)
