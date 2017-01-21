@@ -44,9 +44,9 @@ to walk thru a list, use Iteration:
 Iteration i;
 
 List_beginIteration( myList, &i );
-Item *item;
-while((item = iterate(i) )){
-   //do something with item->data
+
+while( iterate(i) ){
+   //do something with i.item->data
 }
 
 
