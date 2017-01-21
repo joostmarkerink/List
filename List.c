@@ -38,9 +38,8 @@ List *List_create(){
 void List_destroy(List *list){
     Iteration e;
     List_beginIteration(list,&e);
-    Item *itm;
-    while((itm = e.next(&e)))
-        free(itm);
+    while(iterate(e))
+        free(e.item);
 
     free(list);
 }
@@ -57,8 +56,7 @@ Item *Item_create(unsigned itemSize){
 Item *List_findItem(List *list,const void *data){
     Iteration e;
     List_beginIteration(list, &e);
-    Item *item;
-    while((item=iterate(e))) if(item->data==data) return item;
+    while(iterate(e)) if(e.item->data==data) return e.item;
     return NULL;
 }
 
@@ -96,8 +94,7 @@ int List_getItemIndex(List *list,Item *item){
     int offset=0;
     Iteration e;
     List_beginIteration(list,&e);
-    Item *itm;
-    while((itm = iterate(e))) if(itm==item) return offset;
+    while(iterate(e)) if(e.item==item) return offset;
     return offset;
 }
 
@@ -136,9 +133,8 @@ void List_insert(List *list,Item *newItem,Item *point,int after){
 void List_gatherItems(List *list,Item **items){
     Iteration e;
     List_beginIteration(list, &e);
-    Item *item;
-    while((iterate(e)))
-        *items++=item;
+    while(iterate(e))
+        *items++=e.item;
 }
 
 
@@ -169,6 +165,9 @@ void List_beginReversedIteration(List *list,Iteration *e){
     e->nextItem=list->last;
     e->next=Iteration_reverseNextItem;
 }
+
+
+
 
 
 
