@@ -39,7 +39,7 @@ void List_destroy(List *list){
     Iteration e;
     List_beginIteration(list,&e);
     Item *itm;
-    while((itm = iterate(e)))
+    while((itm = e.next(&e)))
         free(itm);
 
     free(list);
@@ -137,7 +137,7 @@ void List_gatherItems(List *list,Item **items){
     Iteration e;
     List_beginIteration(list, &e);
     Item *item;
-    while((item=iterate(e)))
+    while((iterate(e)))
         *items++=item;
 }
 
@@ -145,26 +145,30 @@ void List_gatherItems(List *list,Item **items){
 
 
 
-Item *Iteration_nextItem(Iteration *e){
-    Item *res=e->item;
-    if(res) e->item=res->next;
-    return res;
+int Iteration_nextItem(Iteration *e){
+    e->item=e->nextItem;
+    if(e->item) e->nextItem=e->item->next;
+    return e->item!=0;
 }
 
 void List_beginIteration(List *list,Iteration *e){
-    e->item=list->first;
+    e->item=0;
+    e->nextItem=list->first;
     e->next=Iteration_nextItem;
 }
 
 
-Item *Iteration_reverseNextItem(Iteration *i){
-    Item *res=i->item;
-    if(res) i->item=res->previous;
-    return res;
+int Iteration_reverseNextItem(Iteration *e){
+    e->item=e->nextItem;
+    if(e->item) e->nextItem=e->item->previous;
+    return e->item!=0;
 }
 
 void List_beginReversedIteration(List *list,Iteration *e){
-    e->item=list->last;
+    e->item=0;
+    e->nextItem=list->last;
     e->next=Iteration_reverseNextItem;
 }
+
+
 
