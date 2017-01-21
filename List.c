@@ -45,7 +45,7 @@ void List_destroy(List *list){
     free(list);
 }
 
-Item *Item_create(size_t itemSize){
+Item *Item_create(unsigned itemSize){
     Item *i=(Item *)malloc(itemSize<sizeof(Item)?sizeof(Item):itemSize);
     i->data=NULL;
     i->previous=i->next=NULL;
@@ -92,8 +92,8 @@ void List_removeItem(List *list,Item *item){
 
 
 
-off_t List_getItemIndex(List *list,Item *item){
-    off_t offset=0;
+int List_getItemIndex(List *list,Item *item){
+    int offset=0;
     Iteration e;
     List_beginIteration(list,&e);
     Item *itm;
@@ -167,9 +167,4 @@ void List_beginReversedIteration(List *list,Iteration *e){
     e->item=list->last;
     e->next=Iteration_reverseNextItem;
 }
-
-
-
-
-
 
