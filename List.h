@@ -59,7 +59,7 @@ Item *  Item_create         (size_t);                                   //create
 Item *  List_appendItem     (List *,Item *);                            //append item at the end of the list
 void    List_removeItem     (List *,Item *);                            //detach an item from the list (use free(item) to destroy it)
 off_t   List_getItemIndex   (List *,Item *);                            //returns the offset of item or -1 if it is not in the list
-void    List_insert         (List *,Item *toAdd,Item *point,int after); //insert an item before or after (after = 0/1) an existing item in the list
+void    List_insertItem     (List *,Item *toAdd,Item *point,int after); //insert an item before or after (after = 0/1) an existing item in the list
 
 Item *  List_findItem       (List *,const void *);                      //returns the item that contains this data, otherwise it will return NULL 
 void    List_gatherItems    (List *,Item **     );                      //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
