@@ -5,7 +5,7 @@ This List contains a chain of Items, from Item list->first to Item list->last an
 
 It uses the common [free](https://linux.die.net/man/3/free) and [malloc](https://linux.die.net/man/3/malloc) functions to allocate and free dynamic memory.
 
-To add any "data" to a List, it needs act as an 'Item', that means, it needs to be a 'struct' starting with a field of type 'Item'.
+To add any "data" to a List, it needs to act as an 'Item', that means, it needs to be a 'struct' starting with a field of type 'Item'.
 
 NamedItem is an extension example.
 It allows to attach names to items (max 64 characters). So you can say, it changes a List into a Record.
