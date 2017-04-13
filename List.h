@@ -40,7 +40,6 @@ struct _List{
 
 struct _Item{
     Item *previous,*next;
-    void *data;
 };
 
 struct _Iteration{
@@ -60,7 +59,6 @@ void    List_removeItem     (List *,Item *);                            //detach
 int     List_getItemIndex   (List *,Item *);                            //returns the offset of item or -1 if it is not in the list
 void    List_insertItem     (List *,Item *toAdd,Item *point,int after); //insert an item before or after (after = 0/1) an existing item in the list
 
-Item *  List_findItem       (List *,const void *);
 void    List_gatherItems    (List *,Item **     );                      //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
 
 void List_beginIteration         (List *,Iteration *);
