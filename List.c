@@ -46,19 +46,11 @@ void List_destroy(List *list){
 
 Item *Item_create(unsigned itemSize){
     Item *i=(Item *)malloc(itemSize<sizeof(Item)?sizeof(Item):itemSize);
-    i->data=NULL;
     i->previous=i->next=NULL;
     return i;
 }
 
 
-
-Item *List_findItem(List *list,const void *data){
-    Iteration e;
-    List_beginIteration(list, &e);
-    while(iterate(e)) if(e.item->data==data) return e.item;
-    return NULL;
-}
 
 
 Item *List_appendItem(List *list,Item *i){
