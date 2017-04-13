@@ -23,7 +23,7 @@ list creation:
 ```c
 
 typedef struct{
-   Item item;
+   Item base;
    int value;
 }IntegerItem;
 
@@ -33,7 +33,7 @@ List *myList = List_create();
 IntegerItem *myItem = (IntegerItem *)Item_create( sizeof(IntegerItem) );
 myItem->value = 99;
 
-List_appendItem(myList, &myItem->item);
+List_appendItem(myList, &myItem->base);
 
 List_destroy(myList);
 
