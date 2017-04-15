@@ -48,15 +48,14 @@ Item *createNamedItem(const char *name){
 Item *List_findNamedItem(List *list,const char *name){ 
     Iteration e;
     List_beginIteration(list, &e);
-    Item *i;
     const char *a,*b;
     char aa,bb;
-    while((i=iterate(e))){
-        a=((NamedItem *)i)->name;
+    while(iterate(e)){
+        a=((NamedItem *)e.item)->name;
         b=name;
         aa=0;bb=0;
         while((aa=*a++) && (bb=*b++)) if(aa!=bb) break;
-        if(aa==bb) return i;
+        if(aa==bb) return e.item;
     }
     return NULL; 
 }
