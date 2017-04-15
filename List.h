@@ -37,7 +37,6 @@ typedef void AbstractItem;
 
 typedef int(*Item_compare)(const Item **a,const Item **b);
 
-
 struct _List{
     Item *first,*last;
     size_t length;
@@ -51,8 +50,6 @@ struct _Iteration{
     Item *item,*nextItem;
     int(*next)(Iteration *);
 };
-
-#define iterate(e_n_u_m) e_n_u_m.next(&e_n_u_m)
 
 List *          List_create             (void);
 //create an empty list 
@@ -89,5 +86,7 @@ void            List_beginReversedIteration(List *,Iteration *);
 
 void            List_sort                  (List *,Item_compare);
 //uses the standard qsort function to sort its chain of items
+
+int iterate(Iteration *);
 
 #endif /* List_h */
