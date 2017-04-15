@@ -61,9 +61,9 @@ sorting (using the IntegerItem as shown in the List creation example):
 ```c
 
 int IntegerItem_compare(const IntegerItem **a,const IntegerItem **b){
-   return (*a)->value-(*b)->value;
+   return (*a)->value - (*b)->value;
 }
 
-List_sort(list,IntegerItem_compare);
+List_sort(list, IntegerItem_compare);
 
 ```
