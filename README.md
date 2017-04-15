@@ -57,13 +57,8 @@ while( iterate(i) ){
 
 
 ```
-sorting:
+sorting (using the IntegerItem as showed in the List creation example):
 ```c
-
-typedef struct{
-   Item base;
-   int value;
-}IntegerItem;
 
 int IntegerItem_compare(const IntegerItem **a,const IntegerItem **b){
    return (*a)->value-(*b)->value;
