@@ -35,16 +35,38 @@ List *List_create(){
 
 
 
+void List_appendItems(List *list,Item **items,unsigned long numberOfItems){
+    int i;
+    Item *first=items[0],
+    *last=items[numberOfItems-1];
+    
+    for(i=1;i<numberOfItems;i++)
+        (items[i-1]->next=items[i])->previous=items[i-1];
+    
+    if(list->last)  list->last->next=first; 
+    else list->first=first;
+    
+    list->last=last;
+    list->length+=numberOfItems;
+    
+    list->last->next=NULL;
+    list->first->previous=NULL;
+
+}
+
+
+
 void List_destroy(List *list){
     Iteration e;
     List_beginIteration(list,&e);
-    while(iterate(e))
-        free(e.item);
-
+    while(iterate(e)) free(e.item);
     free(list);
 }
 
-Item *Item_create(unsigned itemSize){
+
+
+
+AbstractItem *Item_create(unsigned itemSize){
     Item *i=(Item *)malloc(itemSize<sizeof(Item)?sizeof(Item):itemSize);
     i->previous=i->next=NULL;
     return i;
@@ -53,7 +75,7 @@ Item *Item_create(unsigned itemSize){
 
 
 
-Item *List_appendItem(List *list,Item *i){
+void List_appendItem(List *list,Item *i){
     i->previous=list->last;
     i->next=NULL;
     if(list->last){
@@ -63,7 +85,6 @@ Item *List_appendItem(List *list,Item *i){
     }
     list->last=i;
     list->length++;
-    return i;
 }
 
 
@@ -122,15 +143,13 @@ void List_insert(List *list,Item *newItem,Item *point,int after){
 }
 
 
+
 void List_gatherItems(List *list,Item **items){
     Iteration e;
     List_beginIteration(list, &e);
     while(iterate(e))
         *items++=e.item;
 }
-
-
-
 
 
 int Iteration_nextItem(Iteration *e){
@@ -160,6 +179,19 @@ void List_beginReversedIteration(List *list,Iteration *e){
 
 
 
+void List_sort(List *list,Item_compare compare){
+    unsigned long len=list->length;
+
+    Item **all=malloc(len*sizeof(Item *));
+    
+    List_gatherItems(list, all);
+    qsort(all, len, sizeof(Item *),(int(*)(const void *,const void *))compare);
+    list->length=0;
+    list->first=list->last=NULL;
+    List_appendItems(list, all, len);
+    free(all);
+    
+}
 
 
 
