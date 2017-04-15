@@ -33,6 +33,11 @@ typedef struct _List List;
 typedef struct _Item Item;
 typedef struct _Iteration Iteration;
 
+typedef void AbstractItem;
+
+typedef int(*Item_compare)(const Item **a,const Item **b);
+
+
 struct _List{
     Item *first,*last;
     size_t length;
@@ -49,19 +54,40 @@ struct _Iteration{
 
 #define iterate(e_n_u_m) e_n_u_m.next(&e_n_u_m)
 
-List *  List_create         (void);                                     //create an empty list 
-void    List_destroy        (List *);                                   //destroy list and all its items (does not touch the data)
+List *          List_create             (void);
+//create an empty list 
 
-Item *  Item_create         (unsigned);                                   //create an empty item, 0 size refers to sizeof(Item)
+void            List_destroy            (List *);
+//destroy list and all its items (does not touch the data)
 
-Item *  List_appendItem     (List *,Item *);                            //append item at the end of the list
-void    List_removeItem     (List *,Item *);                            //detach an item from the list (use free(item) to destroy it)
-int     List_getItemIndex   (List *,Item *);                            //returns the offset of item or -1 if it is not in the list
-void    List_insertItem     (List *,Item *toAdd,Item *point,int after); //insert an item before or after (after = 0/1) an existing item in the list
+AbstractItem *  Item_create     (unsigned);
+//create an empty item, 0 size refers to sizeof(Item)
 
-void    List_gatherItems    (List *,Item **     );                      //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
+void            List_appendItem         (List *,Item *);
+//append item at the end of the list
 
-void List_beginIteration         (List *,Iteration *);
-void List_beginReversedIteration (List *,Iteration *);
+void            List_appendItems        (List *,Item **,unsigned long);
+//append a bunch of items
+
+void            List_removeItem         (List *,Item *);
+//detach an item from the list (use free(item) to destroy it)
+
+int             List_getItemIndex       (List *,Item *);
+//returns the offset of item or -1 if it is not in the list
+
+void            List_insertItem         (List *,Item *toAdd,Item *point,int after); 
+//insert an item before or after (after = 0/1) an existing item in the list
+
+void            List_gatherItems        (List *,Item **     );
+//puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
+
+void            List_beginIteration        (List *,Iteration *);
+//initializes the Iteration
+
+void            List_beginReversedIteration(List *,Iteration *);
+//initializes the Iteration in reversed order
+
+void            List_sort                  (List *,Item_compare);
+//uses the standard qsort function to sort its chain of items
 
 #endif /* List_h */
