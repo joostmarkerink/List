@@ -88,5 +88,6 @@ void            List_sort                  (List *,Item_compare);
 //uses the standard qsort function to sort its chain of items
 
 int iterate(Iteration *);
+// perform the next step in the interation. returns 1 if the Iteration.item is available,0 when the iteration is finished
 
 #endif /* List_h */
