@@ -50,7 +50,7 @@ Item *List_findNamedItem(List *list,const char *name){
     List_beginIteration(list, &e);
     const char *a,*b;
     char aa,bb;
-    while(iterate(e)){
+    while(iterate(&e)){
         a=((NamedItem *)e.item)->name;
         b=name;
         aa=0;bb=0;
