@@ -15,8 +15,7 @@ In function names, I do not use short names like info, enum, init but full words
 
 Object Oriented functions always start with the Object type name and finish with their function, like: List_create this way it's easier to remember how functions are named, and align nicely in the code layout.
 
-When I use the word "data" in the List context, I refer to the "void *" pointer in an Item as it can be of any size or type.
-The functions do as little as possible to keep it transparent and clear. 
+The functions do as little as possible to keep it transparent and clear. I use the preprocessor as little as possible as it makes the structures unclear and too "magical".
 
 ## examples
 list creation:
@@ -51,7 +50,7 @@ Iteration i;
 
 List_beginIteration( myList, &i );
 
-while( iterate(i) ){
+while( iterate(&i) ){
    //do something with i.item
 }
 
