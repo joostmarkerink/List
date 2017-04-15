@@ -57,7 +57,7 @@ while( iterate(i) ){
 
 
 ```
-sorting (using the IntegerItem as showed in the List creation example):
+sorting (using the IntegerItem as shown in the List creation example):
 ```c
 
 int IntegerItem_compare(const IntegerItem **a,const IntegerItem **b){
