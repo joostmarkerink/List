@@ -59,7 +59,7 @@ void List_appendItems(List *list,Item **items,unsigned long numberOfItems){
 void List_destroy(List *list){
     Iteration e;
     List_beginIteration(list,&e);
-    while(iterate(e)) free(e.item);
+    while(iterate(&e)) free(e.item);
     free(list);
 }
 
@@ -107,7 +107,7 @@ int List_getItemIndex(List *list,Item *item){
     int offset=0;
     Iteration e;
     List_beginIteration(list,&e);
-    while(iterate(e)) if(e.item==item) return offset;
+    while(iterate(&e)) if(e.item==item) return offset;
     return offset;
 }
 
@@ -147,7 +147,7 @@ void List_insert(List *list,Item *newItem,Item *point,int after){
 void List_gatherItems(List *list,Item **items){
     Iteration e;
     List_beginIteration(list, &e);
-    while(iterate(e))
+    while(iterate(&e))
         *items++=e.item;
 }
 
@@ -177,6 +177,7 @@ void List_beginReversedIteration(List *list,Iteration *e){
     e->next=Iteration_reverseNextItem;
 }
 
+int iterate(Iteration *i){ return i->next(i); }
 
 
 void List_sort(List *list,Item_compare compare){
@@ -192,6 +193,8 @@ void List_sort(List *list,Item_compare compare){
     free(all);
     
 }
+
+
 
 
 
