@@ -30,7 +30,7 @@ typedef struct{
 
 List *myList = List_create();
 
-IntegerItem *myItem = (IntegerItem *)Item_create( sizeof(IntegerItem) );
+IntegerItem *myItem = Item_create( sizeof(IntegerItem) );
 myItem->value = 99;
 
 List_appendItem(myList, &myItem->base);
