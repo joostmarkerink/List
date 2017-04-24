@@ -36,7 +36,7 @@ myItem->value = 99;
 
 List_appendItem(myList, &myItem->base);
 
-List_destroy(myList);
+List_free(myList);
 
 
 ```
