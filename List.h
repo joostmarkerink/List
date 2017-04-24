@@ -55,10 +55,10 @@ struct _Iteration{
 List *          List_create             (void);
 //create an empty list 
 
-void            List_destroy            (List *);
+void            List_free               (List *);
 //destroy list and all its items (does not touch the data)
 
-AbstractItem *  Item_create     (unsigned);
+AbstractItem *  Item_create             (unsigned);
 //create an empty item, 0 size refers to sizeof(Item)
 
 void            List_appendItem         (List *,AbstractItem *);
