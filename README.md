@@ -40,9 +40,9 @@ List_free(myList);
 
 
 ```
-List_destroy frees the list and its chain of items. 
+List_free frees the list and its entire chain of items. 
 
-List_removeItem does not destroy the Item. It is only detached from the list. use the standard free(myItem); to destroy it
+List_removeItem does not free the Item. It is only detached from the list. use the standard free(myItem); to destroy it
 An Item can only be added to one list. However, It can be detached from one and attached to the other.
 
 to walk thru a list, use Iteration:
