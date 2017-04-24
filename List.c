@@ -56,7 +56,7 @@ void List_appendItems(List *list,AbstractItem **items,unsigned long numberOfItem
 
 
 
-void List_destroy(List *list){
+void List_free(List *list){
     Iteration e;
     List_beginIteration(list,&e);
     while(iterate(&e)) free(e.item);
