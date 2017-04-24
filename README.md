@@ -7,7 +7,7 @@ It uses the common [free](https://linux.die.net/man/3/free) and [malloc](https:/
 
 To add any "data" to a List, it needs to act as an 'Item', that means, it needs to be a 'struct' starting with a field of type 'Item'.
 The AbstractItem type is defined so you do not need to convert Item types all the time. 
-You can just do ```c MyItem *item=Item_create();``` instead of having to do ```c MyItem *item=(MyItem *)Item_create();```
+You can just do ``` MyItem *item=Item_create();``` instead of having to do ``` MyItem *item=(MyItem *)Item_create();```
 
 NamedItem is an extension example.
 It allows to attach names to items (max 64 characters). So you can say, it changes a List into a Record.
