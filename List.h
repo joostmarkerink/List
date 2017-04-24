@@ -47,7 +47,8 @@ struct _Item{
 };
 
 struct _Iteration{
-    Item *item,*nextItem;
+    AbstractItem *item;
+    Item *nextItem;
     int(*next)(Iteration *);
 };
 
@@ -60,10 +61,10 @@ void            List_destroy            (List *);
 AbstractItem *  Item_create     (unsigned);
 //create an empty item, 0 size refers to sizeof(Item)
 
-void            List_appendItem         (List *,Item *);
+void            List_appendItem         (List *,AbstractItem *);
 //append item at the end of the list
 
-void            List_appendItems        (List *,Item **,unsigned long);
+void            List_appendItems        (List *,AbstractItem **,unsigned long);
 //append a bunch of items
 
 void            List_removeItem         (List *,Item *);
@@ -75,7 +76,7 @@ int             List_getItemIndex       (List *,Item *);
 void            List_insertItem         (List *,Item *toAdd,Item *point,int after); 
 //insert an item before or after (after = 0/1) an existing item in the list
 
-void            List_gatherItems        (List *,Item **     );
+void            List_gatherItems        (List *,AbstractItem **     );
 //puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
 
 void            List_beginIteration        (List *,Iteration *);
