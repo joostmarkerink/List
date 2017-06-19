@@ -67,13 +67,13 @@ void            List_appendItem         (List *,AbstractItem *);
 void            List_appendItems        (List *,AbstractItem **,unsigned long);
 //append a bunch of items
 
-void            List_removeItem         (List *,Item *);
+void            List_removeItem         (List *,AbstractItem *);
 //detach an item from the list (use free(item) to destroy it)
 
-int             List_getItemIndex       (List *,Item *);
+int             List_getItemIndex       (List *,AbstractItem *);
 //returns the offset of item or -1 if it is not in the list
 
-void            List_insertItem         (List *,Item *toAdd,Item *point,int after); 
+void            List_insertItem         (List *,AbstractItem *toAdd,Item *point,int after); 
 //insert an item before or after (after = 0/1) an existing item in the list
 
 void            List_gatherItems        (List *,AbstractItem **     );
