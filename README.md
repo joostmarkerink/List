@@ -34,7 +34,7 @@ List *myList = List_create();
 IntegerItem *myItem = Item_create( sizeof(IntegerItem) );
 myItem->value = 99;
 
-List_appendItem(myList, &myItem->base);
+List_appendItem(myList, myItem);
 
 List_free(myList);
 
