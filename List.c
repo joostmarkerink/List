@@ -89,8 +89,8 @@ void List_appendItem(List *list,AbstractItem *ii){
 }
 
 
-void List_removeItem(List *list,Item *item){
-    
+void List_removeItem(List *list,AbstractItem *i){
+    Item *item=(Item *)i;
     if(list->last==item)  list->last=item->previous;
     if(list->first==item) list->first=item->next;
     
