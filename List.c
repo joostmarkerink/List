@@ -104,7 +104,7 @@ void List_removeItem(List *list,AbstractItem *i){
 
 
 
-int List_getItemIndex(List *list,Item *item){
+int List_getItemIndex(List *list,AbstractItem *item){
     int offset=0;
     Iteration e;
     List_beginIteration(list,&e);
@@ -114,7 +114,9 @@ int List_getItemIndex(List *list,Item *item){
 
 
 
-void List_insert(List *list,Item *newItem,Item *point,int after){
+void List_insert(List *list,AbstractItem *n,AbstractItem *p,int after){
+    Item *point = (Item *)p;
+    Item *newItem = (Item *)n;
     if(!point) point=after?list->last:list->first;
 
     if(after){
