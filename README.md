@@ -9,8 +9,6 @@ To add any "data" to a List, it needs to act as an 'Item', that means, it needs 
 The AbstractItem type is defined so you do not need to convert Item types all the time. 
 You can just do ``` MyItem *item=Item_create();``` instead of having to do ``` MyItem *item=(MyItem *)Item_create();```
 
-NamedItem is an extension example.
-It allows to attach names to items (max 64 characters). So you can say, it changes a List into a Record.
 
 ## Style
 In function names, I do not use short names like info, enum, init but full words for clearity: information,enumerator and initialize.
