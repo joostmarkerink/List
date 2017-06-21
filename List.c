@@ -27,7 +27,7 @@
 #include "List.h"
 
 List *List_create(){
-    List *l=(List *)malloc(sizeof(List));
+    List *l=Memory_create(sizeof(List));
     l->first=l->last=NULL;
     l->length=0;
     return l;
@@ -59,22 +59,22 @@ void List_appendItems(List *list,AbstractItem **items,unsigned long numberOfItem
 void List_free(List *list){
     Iteration e;
     List_beginIteration(list,&e);
-    while(iterate(&e)) free(e.item);
-    free(list);
+    while(iterate(&e)) Item_free(e.item);
+    Memory_free(list);
 }
 
 
 
 
 AbstractItem *Item_create(unsigned itemSize){
-    Item *i=(Item *)malloc(itemSize<sizeof(Item)?sizeof(Item):itemSize);
+    Item *i=Memory_create(itemSize<sizeof(Item)?sizeof(Item):itemSize);
     i->previous=i->next=NULL;
     return i;
 }
 
 
 
-
+ 
 void List_appendItem(List *list,AbstractItem *ii){
     Item *i=ii;
     i->previous=list->last;
@@ -186,14 +186,14 @@ int iterate(Iteration *i){ return i->next(i); }
 void List_sort(List *list,Item_compare compare){
     unsigned long len=list->length;
 
-    AbstractItem **all=malloc(len*sizeof(Item *));
+    AbstractItem **all=Memory_create(len*sizeof(Item *));
     
     List_gatherItems(list, all);
     qsort(all, len, sizeof(Item *),(int(*)(const void *,const void *))compare);
     list->length=0;
     list->first=list->last=NULL;
     List_appendItems(list, all, len);
-    free(all);
+    Memory_free(all);
     
 }
 
