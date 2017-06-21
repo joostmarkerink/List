@@ -29,6 +29,12 @@
 
 #include <stdlib.h>
 
+#ifndef MEMORY_H
+#define MEMORY_H
+Memory_create malloc
+Memory_free   free
+#endif
+
 typedef struct _List List;
 typedef struct _Item Item;
 typedef struct _Iteration Iteration;
@@ -60,6 +66,8 @@ void            List_free               (List *);
 
 AbstractItem *  Item_create             (unsigned);
 //create an empty item, 0 size refers to sizeof(Item)
+
+void            Item_free               (AbstractItem *);
 
 void            List_appendItem         (List *,AbstractItem *);
 //append item at the end of the list
