@@ -3,7 +3,7 @@ A generic and extendable linked list object in C.
 
 This List contains a chain of Items, from Item list->first to Item list->last and keeps track of the length. The Iteration object is used to iterate thru this chain.
 
-It uses the common [free](https://linux.die.net/man/3/free) and [malloc](https://linux.die.net/man/3/malloc) functions to allocate and free dynamic memory.
+It uses the common [free](https://linux.die.net/man/3/free) and [malloc](https://linux.die.net/man/3/malloc) functions to allocate and free dynamic memory. To replace these, #define MEMORY_H and implement Memory_create(size) and Memory_free(data)
 
 To add any "data" to a List, it needs to act as an 'Item', that means, it needs to be a 'struct' starting with a field of type 'Item'.
 The AbstractItem type is defined so you do not need to convert Item types all the time. 
