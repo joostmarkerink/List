@@ -31,8 +31,8 @@
 
 #ifndef MEMORY_H
 #define MEMORY_H
-Memory_create malloc
-Memory_free   free
+#define Memory_create malloc
+#define Memory_free   free
 #endif
 
 typedef struct _List List;
