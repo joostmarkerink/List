@@ -61,8 +61,8 @@ struct _Iteration{
 List *          List_create             (void);
 //create an empty list 
 
-void            List_free               (List *);
-//destroy list and all its items (does not touch the data)
+void            List_free               (List *,void(*item_free)(void *));
+//destroy list and all its items. When item_free is NULL, it uses the regular "free(void *)" to free the items.
 
 AbstractItem *  Item_create             (unsigned);
 //create an empty item, 0 size refers to sizeof(Item)
