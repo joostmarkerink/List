@@ -56,10 +56,13 @@ void List_appendItems(List *list,AbstractItem **items,unsigned long numberOfItem
 
 
 
-void List_free(List *list){
+void Item_free(Item *item){ free(item); }
+
+void List_free(List *list,void(*item_free)(void *)){
+    if(!item_free) item_free=Item_free;
     Iteration e;
     List_beginIteration(list,&e);
-    while(iterate(&e)) Item_free(e.item);
+    while(iterate(&e)) item_free(e.item);
     Memory_free(list);
 }
 
