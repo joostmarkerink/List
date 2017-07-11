@@ -56,7 +56,7 @@ void List_appendItems(List *list,AbstractItem **items,unsigned long numberOfItem
 
 
 
-void Item_free(Item *item){ free(item); }
+void Item_free(AbstractItem *item){ free(item); }
 
 void List_free(List *list,void(*item_free)(void *)){
     if(!item_free) item_free=Item_free;
