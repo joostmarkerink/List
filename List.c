@@ -1,20 +1,20 @@
 //
-//  List.c
+//  list.c
 /*
  MIT License
- 
+
  Copyright (c) 2017 Joost Markerink
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in all
  copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,31 +24,33 @@
  SOFTWARE.
  */
 
-#include "List.h"
+#include "list.h"
 
-List *List_create(){
-    List *l=Memory_create(sizeof(List));
-    l->first=l->last=NULL;
-    l->length=0;
-    return l;
+
+
+list *list_create(){
+    list *list=memory_create(sizeof(list));
+    list->first=list->last=NULL;
+    list->length=0;
+    return list;
 }
 
 
 
-void List_appendItems(List *list,AbstractItem **items,unsigned long numberOfItems){
+void list_append_items(list *list,abstractitem **items,unsigned long numberOfitems){
     int i;
-    Item *first=items[0],
-    *last=items[numberOfItems-1];
-    
-    for(i=1;i<numberOfItems;i++)
-        ((Item *)items[i-1])->next=((Item *)items[i])->previous=items[i-1];
-    
-    if(list->last)  list->last->next=first; 
+    item *first=items[0],
+    *last=items[numberOfitems-1];
+
+    for(i=1;i<numberOfitems;i++)
+        ((item *)items[i-1])->next=((item *)items[i])->previous=items[i-1];
+
+    if(list->last)  list->last->next=first;
     else list->first=first;
-    
+
     list->last=last;
-    list->length+=numberOfItems;
-    
+    list->length+=numberOfitems;
+
     list->last->next=NULL;
     list->first->previous=NULL;
 
@@ -56,30 +58,30 @@ void List_appendItems(List *list,AbstractItem **items,unsigned long numberOfItem
 
 
 
-void Item_free(AbstractItem *item){ free(item); }
+void item_free(abstractitem *item){ free(item); }
 
-void List_free(List *list,void(*item_free)(void *)){
-    if(!item_free) item_free=Item_free;
-    Iteration e;
-    List_beginIteration(list,&e);
+void list_free(list *list,void(*item_free)(void *)){
+    if(!item_free) item_free=item_free;
+    iteration e;
+    list_begin_iteration(list,&e);
     while(iterate(&e)) item_free(e.item);
-    Memory_free(list);
+    memory_free(list);
 }
 
 
 
 
-AbstractItem *Item_create(unsigned itemSize){
-    Item *i=Memory_create(itemSize<sizeof(Item)?sizeof(Item):itemSize);
+abstractitem *item_create(unsigned itemSize){
+    item *i=memory_create(itemSize<sizeof(item)?sizeof(item):itemSize);
     i->previous=i->next=NULL;
     return i;
 }
 
 
 
- 
-void List_appendItem(List *list,AbstractItem *ii){
-    Item *i=ii;
+
+void list_append_item(list *list,abstractitem *ii){
+    item *i=ii;
     i->previous=list->last;
     i->next=NULL;
     if(list->last){
@@ -92,14 +94,14 @@ void List_appendItem(List *list,AbstractItem *ii){
 }
 
 
-void List_removeItem(List *list,AbstractItem *i){
-    Item *item=(Item *)i;
+void list_remove_item(list *list,abstractitem *i){
+    item *item=i;
     if(list->last==item)  list->last=item->previous;
     if(list->first==item) list->first=item->next;
-    
+
     if(item->next) item->next->previous=item->previous;
     if(item->previous) item->previous->next=item->next;
-    
+
     list->length--;
     item->next=item->previous=NULL;
 }
@@ -107,100 +109,95 @@ void List_removeItem(List *list,AbstractItem *i){
 
 
 
-int List_getItemIndex(List *list,AbstractItem *item){
+int list_get_item_index(list *list,abstractitem *item){
     int offset=0;
-    Iteration e;
-    List_beginIteration(list,&e);
+    iteration e;
+    list_begin_iteration(list,&e);
     while(iterate(&e)) if(e.item==item) return offset;
     return offset;
 }
 
 
 
-void List_insert(List *list,AbstractItem *n,AbstractItem *p,int after){
-    Item *point = (Item *)p;
-    Item *newItem = (Item *)n;
+void list_insert_item(list *list,abstractitem *n,abstractitem *p,int after){
+    item *point = (item *)p;
+    item *newitem = (item *)n;
     if(!point) point=after?list->last:list->first;
 
     if(after){
         if(point==list->last){
-            List_appendItem(list, newItem);
+            list_append_item(list, newitem);
             return;
         }else if(point->next){
-            newItem->next = point->next;
-            point->next->previous=newItem;
-            newItem->previous=point;
-            point->next=newItem;
+            newitem->next = point->next;
+            point->next->previous=newitem;
+            newitem->previous=point;
+            point->next=newitem;
         }
     }else{
         if(point){
             if(point->previous){
-                point->previous->next=newItem;
-                newItem->previous=point->previous;
+                point->previous->next=newitem;
+                newitem->previous=point->previous;
             }else{
-                if(list->last == list->first) list->last=newItem;
-                list->first=newItem;
+                if(list->last == list->first) list->last=newitem;
+                list->first=newitem;
             }
-            point->previous = newItem;
+            point->previous = newitem;
         }
-        newItem->next=point;
+        newitem->next=point;
     }
     list->length++;
 }
 
 
 
-void List_gatherItems(List *list,AbstractItem **items){
-    Iteration e;
-    List_beginIteration(list, &e);
+void list_gather_items(list *list,abstractitem **items){
+    iteration e;
+    list_begin_iteration(list, &e);
     while(iterate(&e))
         *items++=e.item;
 }
 
 
-int Iteration_nextItem(Iteration *e){
-    e->item=e->nextItem;
-    if(e->item) e->nextItem=((Item *)e->item)->next;
+int iteration_next_item(iteration *e){
+    e->item=e->next_item;
+    if(e->item) e->next_item=((item *)e->item)->next;
     return e->item!=0;
 }
 
-void List_beginIteration(List *list,Iteration *e){
+void list_begin_iteration(list *list,iteration *e){
     e->item=0;
-    e->nextItem=list->first;
-    e->next=Iteration_nextItem;
+    e->next_item=list->first;
+    e->next=iteration_next_item;
 }
 
 
-int Iteration_reverseNextItem(Iteration *e){
-    e->item=e->nextItem;
-    if(e->item) e->nextItem=((Item *)e->item)->previous;
+int iteration_reverse_next_item(iteration *e){
+    e->item=e->next_item;
+    if(e->item) e->next_item=((item *)e->item)->previous;
     return e->item!=0;
 }
 
-void List_beginReversedIteration(List *list,Iteration *e){
+void list_begin_reversed_iteration(list *list,iteration *e){
     e->item=0;
-    e->nextItem=list->last;
-    e->next=Iteration_reverseNextItem;
+    e->next_item=list->last;
+    e->next=iteration_reverse_next_item;
 }
 
-int iterate(Iteration *i){ return i->next(i); }
+int iterate(iteration *i){ return i->next(i); }
 
 
-void List_sort(List *list,Item_compare compare){
+void list_sort(list *list,item_compare compare){
     unsigned long len=list->length;
 
-    AbstractItem **all=Memory_create(len*sizeof(Item *));
-    
-    List_gatherItems(list, all);
-    qsort(all, len, sizeof(Item *),(int(*)(const void *,const void *))compare);
+    abstractitem **all=memory_create(len*sizeof(item *));
+
+    list_gather_items(list, all);
+    qsort(all, len, sizeof(item *),(int(*)(const void *,const void *))compare);
     list->length=0;
     list->first=list->last=NULL;
-    List_appendItems(list, all, len);
-    Memory_free(all);
-    
+    list_append_items(list, all, len);
+    memory_free(all);
+
 }
-
-
-
-
-
