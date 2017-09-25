@@ -11,7 +11,7 @@ You can just do ``` myitem *item=item_create();``` instead of having to do ``` m
 
 
 ## style
-In function names, I do not use short names like info, enum, init but full words for clearity: information,enumerator and initialize.
+In function names, I do not use short names like info, enum, init but full words for clearity: information,enumerator and initialize. All words are lowercase with a dash between the words except for type names, they do not have dashes between words, 'abstractitem' for example.
 
 Object Oriented functions always start with the object type name and finish with their function, like: list_create this way it's easier to remember how functions are named, and align nicely in the code layout.
 
