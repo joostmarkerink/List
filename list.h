@@ -64,7 +64,7 @@ list *          list_create             (void);
 //create an empty list
 
 void            list_free               (list *,void(*item_free)(void *));
-//destroy list and all its items. When item_free is NULL, it uses the regular "free(void *)" to free the items.
+//free list and all its items. When item_free is NULL, it uses the regular "free(void *)" to free the items.
 
 abstractitem *  item_create             (unsigned);
 //create an empty item, 0 size refers to sizeof(item)
