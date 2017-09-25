@@ -34,7 +34,7 @@ myitem->value = 99;
 
 list_append_item(mylist, myitem);
 
-list_free(mylist);
+list_free(mylist,0);
 
 
 ```
