@@ -1,20 +1,20 @@
 //
-//  List.h
+//  list.h
 /*
  MIT License
- 
+
  Copyright (c) 2017 Joost Markerink
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in all
  copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,79 +24,81 @@
  SOFTWARE.
  */
 
-#ifndef List_h
-#define List_h
+#ifndef list_h
+#define list_h
 
-#include <stdlib.h>
 
 #ifndef MEMORY_H
 #define MEMORY_H
-#define Memory_create malloc
-#define Memory_free   free
+
+#include <stdlib.h>
+#define memory_create malloc
+#define memory_free   free
+
 #endif
 
-typedef struct _List List;
-typedef struct _Item Item;
-typedef struct _Iteration Iteration;
+typedef struct _list list;
+typedef struct _item item;
+typedef struct _iteration iteration;
 
-typedef void AbstractItem;
+typedef void abstractitem;
 
-typedef int(*Item_compare)(const Item **a,const Item **b);
+typedef int(*item_compare)(const item **a,const item **b);
 
-struct _List{
-    Item *first,*last;
+struct _list{
+    item *first,*last;
     size_t length;
 };
 
-struct _Item{
-    Item *previous,*next;
+struct _item{
+    item *previous,*next;
 };
 
-struct _Iteration{
-    AbstractItem *item;
-    Item *nextItem;
-    int(*next)(Iteration *);
+struct _iteration{
+    abstractitem *item;
+    item *next_item;
+    int(*next)(iteration *);
 };
 
-List *          List_create             (void);
-//create an empty list 
+list *          list_create             (void);
+//create an empty list
 
-void            List_free               (List *,void(*item_free)(void *));
+void            list_free               (list *,void(*item_free)(void *));
 //destroy list and all its items. When item_free is NULL, it uses the regular "free(void *)" to free the items.
 
-AbstractItem *  Item_create             (unsigned);
-//create an empty item, 0 size refers to sizeof(Item)
+abstractitem *  item_create             (unsigned);
+//create an empty item, 0 size refers to sizeof(item)
 
-void            Item_free               (AbstractItem *);
+void            item_free               (abstractitem *);
 
-void            List_appendItem         (List *,AbstractItem *);
+void            list_append_item         (list *,abstractitem *);
 //append item at the end of the list
 
-void            List_appendItems        (List *,AbstractItem **,unsigned long);
+void            list_append_items        (list *,abstractitem **,unsigned long);
 //append a bunch of items
 
-void            List_removeItem         (List *,AbstractItem *);
+void            list_remove_item         (list *,abstractitem *);
 //detach an item from the list (use free(item) to destroy it)
 
-int             List_getItemIndex       (List *,AbstractItem *);
+int             list_get_item_index       (list *,abstractitem *);
 //returns the offset of item or -1 if it is not in the list
 
-void            List_insertItem         (List *,AbstractItem *toAdd,Item *point,int after); 
+void            list_insert_item         (list *,abstractitem *toAdd,abstractitem *point,int after);
 //insert an item before or after (after = 0/1) an existing item in the list
 
-void            List_gatherItems        (List *,AbstractItem **     );
-//puts all items in the Items buffer ( Item *itemsBuffer[list->length]; )
+void            list_gather_items        (list *,abstractitem **     );
+//puts all items in the items buffer ( item *itemsBuffer[list->length]; )
 
-void            List_beginIteration        (List *,Iteration *);
-//initializes the Iteration
+void            list_begin_iteration        (list *,iteration *);
+//initializes the iteration
 
-void            List_beginReversedIteration(List *,Iteration *);
-//initializes the Iteration in reversed order
+void            list_begin_reversed_iteration(list *,iteration *);
+//initializes the iteration in reversed order
 
-void            List_sort                  (List *,Item_compare);
+void            list_sort                  (list *,item_compare);
 //uses the standard qsort function to sort its chain of items
 
-int iterate(Iteration *);
-// perform the next step in the interation. returns 1 if the Iteration.item is available,0 when the iteration is finished
+int iterate(iteration *);
+// perform the next step in the interation. returns 1 if the iteration.item is available,0 when the iteration is finished
 
-#endif /* List_h */
+#endif /* list_h */
