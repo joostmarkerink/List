@@ -64,7 +64,7 @@ void list_free(list *list,void(*item_free)(list *,void *)){
     if(!item_free) item_free=item_free;
     iteration e;
     list_begin_iteration(list,&e);
-    while(iterate(&e)) item_free(e.item);
+    while(iterate(&e)) item_free(list,e.item);
     memory_free(list);
 }
 
