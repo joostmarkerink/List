@@ -63,7 +63,7 @@ struct _iteration{
 list *          list_create             (void);
 //create an empty list
 
-void            list_free               (list *,void(*item_free)(void *));
+void            list_free               (list *,void(*item_free)(list *,void *));
 //free list and all its items. When item_free is NULL, it uses the regular "free(void *)" to free the items.
 
 abstractitem *  item_create             (unsigned);
